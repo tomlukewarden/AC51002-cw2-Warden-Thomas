@@ -13,7 +13,15 @@ class CurrentAccount(CustomerDetails):
         self.account_type = account_type
         self.balance = balance
         self.statement = statement
-        
+    
+    def deposit(self, amount):
+        self.balance += amount
+
+    def withdraw(self, amount):
+        self.balance -= amount
+    
+    def check_balance(self):
+        print ("Balance of a/c {:d} is {:s}{:.2f}".format(self.account_number, self.currency, self.balance))
 
 class SavingAccount(CurrentAccount):
     def __init__(self, name, account_number, address, phone, email, account_type, balance, statement, interest_rate):

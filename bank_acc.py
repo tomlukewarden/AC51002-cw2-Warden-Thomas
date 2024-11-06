@@ -10,11 +10,14 @@ def openAccount():
     account_type = input("Enter your desired account type (A, B, C): ")
     
     if account_type == "A":
-        account_type = bank_accounts.CurrentAccount(name, address, phone, email, balance=0)
+        print("Opening a current account.")
+        print(f"{name} {address} {phone} {email} {account_type}")
     elif account_type == "B":
-        account_type = bank_accounts.SavingAccount(name, address, phone, email, balance=0)
+        print("Opening a savings account.")
+        print(f"{name} {address} {phone} {email} {account_type}")
     elif account_type == "C":
-        account_type = bank_accounts.MortgageAccount(name, address, phone, email, balance=0)
+        print("Opening a mortgage account.")
+        print(f"{name} {address} {phone} {email} {account_type}")
     else:
         print("Invalid account type. Please try again.")
         return openAccount()
@@ -64,11 +67,11 @@ def withdraw():
             print(f"Withdrew {amount} successfully.")
         else:
             print("Insufficient balance.")
-
+            
 def bankingApp():
-    print("Welcome to the banking application. Please select an option from the menu below:")
+    print("Welcome to the Python Bank Banking Application! This is a simple banking application. Please select an option from the menu below:")
     time.sleep(1)
-    while True:
+    def menu():
         print("\n1. Open a new account")
         print("2. Open an existing account")
         print("3. Close an account")
@@ -82,21 +85,38 @@ def bankingApp():
         
         if choice == "1":
             openAccount()
+            returnToMenu()
         elif choice == "2":
-            existingAccount()  # Typically, this option should also lead to specific operations.
+            existingAccount() 
+            returnToMenu()
         elif choice == "3":
             closeAccount()
+            returnToMenu()
         elif choice == "4":
             checkBalance()
+            returnToMenu()
         elif choice == "5":
             deposit()
+            returnToMenu()
         elif choice == "6":
             withdraw()
+            returnToMenu()
         elif choice == "7":
             print("Exiting the application.")
-            break
+            exit()
         else:
             print("Invalid input. Please try again.")
             time.sleep(1)
-
+            menu()
+    def returnToMenu():
+        return_to_menu = input("If you would like to return to our menu? Press enter to continue...")
+        if return_to_menu == 'continue':
+            print("Returning to menu...")
+            time.sleep(1)
+            menu()
+        else:
+            print("Exiting the application.")
+            exit()
+        returnToMenu()
+    menu()
 bankingApp()

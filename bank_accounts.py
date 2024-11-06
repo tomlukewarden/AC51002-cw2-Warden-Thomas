@@ -8,11 +8,10 @@ class CustomerDetails:
     
 
 class CurrentAccount(CustomerDetails):
-    def __init__(self, name, account_number, address, phone, email, account_type, balance, statement):
+    def __init__(self, name, account_number, address, phone, email, account_type, balance):
         super().__init__(name, account_number, address, phone, email)
         self.account_type = account_type
         self.balance = balance
-        self.statement = statement
     
     def deposit(self, amount):
         self.balance += amount

@@ -1,5 +1,5 @@
 class CustomerDetails:
-    last_account_number = 1000  # Initial value; start numbering from 1001
+    last_account_number = 1001  # Initial value; starts numbering from 1001
 
     def __init__(self, name, address, phone, email):
         self.name = name
@@ -16,28 +16,35 @@ class CurrentAccount(CustomerDetails):
         self.account_type = "Current"
         self.balance = balance
 
-
     def __str__(self):
         return f"Name: {self.name}\nAccount type: {self.account_type}\nAccount number: {self.account_number}\nBalance: {self.balance}"
-    
+
     def deposit(self, amount):
         self.balance += amount
+        print(f"Deposited {amount} successfully.")
 
     def withdraw(self, amount):
+        if amount > self.balance:
+            print("Insufficient balance.")
+            return False
         self.balance -= amount
-    
+        print(f"Withdrew {amount} successfully.")
+        return True
+
     def check_balance(self):
-        print ("Balance of a/c {:d} is {:s}{:.2f}".format(self.account_number, self.currency, self.balance))
+        print(f"Balance of account {self.account_number}: {self.balance}")
+
 
 class SavingAccount(CurrentAccount):
-    def __init__(self, name, account_number, address, phone, email, account_type, balance, statement, interest_rate):
-        super().__init__(name, account_number, address, phone, email, account_type, balance, statement)
+    def __init__(self, name, address, phone, email, balance=0, interest_rate=0.02):
+        super().__init__(name, address, phone, email, balance)
+        self.account_type = "Savings"
         self.interest_rate = interest_rate
-        
+
 
 class MortgageAccount(CurrentAccount):
-    def __init__(self, name, account_number, address, phone, email, account_type, balance, statement, interest_rate, monthly_repayment, linked_account_number):
-        super().__init__(name, account_number, address, phone, email, account_type, balance, statement)
+    def __init__(self, name, address, phone, email, balance=0, interest_rate=0.05, monthly_repayment=0):
+        super().__init__(name, address, phone, email, balance)
+        self.account_type = "Mortgage"
         self.interest_rate = interest_rate
         self.monthly_repayment = monthly_repayment
-        self.linked_account_number = linked_account_number

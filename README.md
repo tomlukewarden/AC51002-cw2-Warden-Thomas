@@ -8,15 +8,15 @@ should include at least the following:
 
 ### Requirements  
 
-1. Define the classes to store and manage the data for your Banking Application []
-2. Provide a Menu to run your Banking application. []
+1. Define the classes to store and manage the data for your Banking Application [X]
+2. Provide a Menu to run your Banking application. [X]
 3. Provide an option to register a new Customer (choose suitable data to store for each
-customer).[]
-4. Provide options to open current accounts and saving accounts. []
+customer).[X]
+4. Provide options to open current accounts and saving accounts. [X]
 5. Provide an option to show the current state of all accounts for a customer. []
 6. Add an option to apply interest to all accounts. []
 7. For each account type, provide options to enable a customer to view their account balance,
-deposit cash and withdraw cash. []
+deposit cash and withdraw cash. [X]
 8. Save the current state of the Bank to a text file. []
 9. Load the current state of the Bank from a text file, i.e. restore the current state of the Bank. []
 10. Make good use of classes and functions in your design, to minimise code duplication and

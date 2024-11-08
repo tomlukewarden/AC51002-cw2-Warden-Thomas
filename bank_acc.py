@@ -79,7 +79,8 @@ def bankingApp():
         print("4. Check balance")
         print("5. Deposit")
         print("6. Withdraw")
-        print("7. Exit")
+        print("7. Show all accounts")
+        print("8. Exit")
         
         choice = input("Enter your choice: ")
         
@@ -96,6 +97,8 @@ def bankingApp():
         elif choice == "6":
             withdraw()
         elif choice == "7":
+            print("All accounts for user:")
+        elif choice == "8":
             print("Exiting the application.")
             break
         else:

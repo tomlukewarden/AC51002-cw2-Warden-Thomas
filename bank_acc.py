@@ -11,28 +11,34 @@ def openAccount():
     print("Choose an account type: Current Account (A), Savings Account (B), Mortgage Account (C)")
     account_type = input("Enter your desired account type (A, B, C): ")
 
-    if account_type == "A":
-        account = bank_accounts.CurrentAccount(name, address, phone, email)
-        accounts[account.account_number] = account
-        print("Opening a current account.")
-        print(account)
-    elif account_type == "B":
-        account = bank_accounts.SavingAccount(name, address, phone, email)
-        accounts[account.account_number] = account
-        print("Opening a savings account.")
-        print(account)
-    elif account_type == "C":
-        account = bank_accounts.MortgageAccount(name, address, phone, email)
-        accounts[account.account_number] = account
-        print("Opening a mortgage account.")
-        print(account)
-    else:
-        print("Invalid account type. Please try again.")
-        return openAccount()
+    file_path = "./files/accounts.txt"
+    with open(file_path, "a") as accounts_file:
+        if account_type == "A":
+            account = bank_accounts.CurrentAccount(name, address, phone, email)
+            accounts[account.account_number] = account
+            print("Opening a current account.")
+            accounts_file.write(str(account) + "\n")
+            print(account)
+        elif account_type == "B":
+            account = bank_accounts.SavingAccount(name, address, phone, email)
+            accounts[account.account_number] = account
+            print("Opening a savings account.")
+            accounts_file.write(str(account) + "\n")
+            print(account)
+        elif account_type == "C":
+            account = bank_accounts.MortgageAccount(name, address, phone, email)
+            accounts[account.account_number] = account
+            print("Opening a mortgage account.")
+            accounts_file.write(str(account) + "\n")
+            print(account)
+        else:
+            print("Invalid account type. Please try again.")
+            return openAccount()
     
     print("Account created successfully.")
 
 def existingAccount():
+    
     account_number = int(input("Enter your account number: "))
     account = accounts.get(account_number)
     if account:
@@ -79,7 +85,7 @@ def bankingApp():
         print("4. Check balance")
         print("5. Deposit")
         print("6. Withdraw")
-        print("7. Show all accounts")
+        print("7. Show state of all accounts")
         print("8. Exit")
         
         choice = input("Enter your choice: ")
@@ -97,13 +103,18 @@ def bankingApp():
         elif choice == "6":
             withdraw()
         elif choice == "7":
-            print("All accounts for user:")
+            print("All accounts state:")
+            if accounts:
+                for account_number, account in accounts.items():
+                    print(f'Account Number: {account_number}, Status: OPEN')
+            else:
+                print("No accounts available.")
         elif choice == "8":
             print("Exiting the application.")
-            break
+            exit()
         else:
             print("Invalid input. Please try again.")
         
         input("Press Enter to return to the menu...")
 
-bankingApp()
+bankingApp()    

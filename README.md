@@ -13,7 +13,7 @@ should include at least the following:
 3. Provide an option to register a new Customer (choose suitable data to store for each
 customer).[X]
 4. Provide options to open current accounts and saving accounts. [X]
-5. Provide an option to show the current state of all accounts for a customer. []
+5. Provide an option to show the current state of all accounts for a customer. [X]
 6. Add an option to apply interest to all accounts. []
 7. For each account type, provide options to enable a customer to view their account balance,
 deposit cash and withdraw cash. [X]

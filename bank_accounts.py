@@ -17,7 +17,7 @@ class CurrentAccount(CustomerDetails):
         self.balance = balance
 
     def __str__(self):
-        return f"Name: {self.name}\nAccount type: {self.account_type}\nAccount number: {self.account_number}\nBalance: {self.balance}"
+        return f"\nName: {self.name}\nAccount type: {self.account_type}\nAccount number: {self.account_number}\nBalance: {self.balance}\n"
 
     def deposit(self, amount):
         self.balance += amount

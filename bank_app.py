@@ -51,14 +51,47 @@ def openAccount():
     print("Account created successfully.")
 
 def existingAccount():
-    account_number = int(input("Enter your account number: "))
-    account = accounts.get(account_number)
-    if account:
+    accounts = {}
+    with open('./files/accounts.txt', 'r') as accounts_file:
+        lines = [line.strip() for line in accounts_file if line.strip()] 
+        
+        for i in range(0, len(lines), 4):
+            account_number_line = lines[i + 2]  
+            if "Account number:" in account_number_line:
+                account_number = int(account_number_line.split(":")[1].strip())
+                accounts[account_number] = True
+
+    try:
+        account_number = int(input("Enter your account number: "))
+    except ValueError:
+        print("Invalid input. Please enter a valid account number.")
+        return None
+
+    if accounts.get(account_number):
         print("Account found.")
-        return account
+        return True
     else:
         print("Invalid account number. Please try again.")
-        return None
+        return False
+    
+def existingAccMenu():
+    choice = input('What would you like to do today?')
+    print('1. Check Balance')
+    print("2. Deposit")
+    print("3. Withdraw")
+    print('4. Close Account')
+    print("5. Return to First Menu")
+
+    if choice == "1":
+        checkBalance()
+    elif choice == "2":
+        deposit()
+    elif choice == "3":
+        withdraw()
+    elif choice == "4":
+        closeAccount()
+    elif choice == "5":
+        bankingApp()
 
 def closeAccount():
     account = existingAccount()
@@ -125,7 +158,10 @@ def bankingApp():
         if choice == "1":
             openAccount()
         elif choice == "2":
-            existingAccount() 
+            existingAccount()
+            if existingAccount():
+                existingAccMenu()
+
         elif choice == "3":
             closeAccount()
         elif choice == "4":

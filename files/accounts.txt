@@ -1,0 +1,6 @@
+
+Name: Tom
+Account type: Current
+Account number: 1001
+Balance: 0
+

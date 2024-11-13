@@ -1,14 +1,16 @@
 import bank_accounts
 import time
 
-accounts = {}  
+accounts = {}
 number_of_accounts = 0
 money_all_accounts = 0
 number_current_accounts = 0
 number_savings_accounts = 0
 number_mortgage_accounts = 0
 
-def openAccount(number_of_accounts, number_current_accounts, number_savings_accounts, number_mortgage_accounts):
+def openAccount():
+    global number_of_accounts, number_current_accounts, number_savings_accounts, number_mortgage_accounts
+
     name = input("Enter your name: ")
     address = input("Enter your address: ")
     phone = input("Enter your phone number: ")
@@ -45,11 +47,10 @@ def openAccount(number_of_accounts, number_current_accounts, number_savings_acco
         else:
             print("Invalid account type. Please try again.")
             return openAccount()
-    
+
     print("Account created successfully.")
 
 def existingAccount():
-    # Need to read from file to search for account -  could maybe use cvs library????? have a think
     account_number = int(input("Enter your account number: "))
     account = accounts.get(account_number)
     if account:
@@ -60,7 +61,6 @@ def existingAccount():
         return None
 
 def closeAccount():
-    # same as existing account
     account = existingAccount()
     if account:
         close_decision = input("Are you sure you want to close your account? (Y/N): ")
@@ -75,20 +75,22 @@ def checkBalance():
     if account:
         account.check_balance()
 
-def deposit(money_all_accounts):
+def deposit():
+    global money_all_accounts
     account = existingAccount()
     if account:
         amount = float(input("How much would you like to deposit? "))
         account.deposit(amount)
         money_all_accounts += amount
 
-def withdraw(money_all_accounts):
+def withdraw():
+    global money_all_accounts
     account = existingAccount()
     if account:
         amount = float(input("How much would you like to withdraw? "))
         account.withdraw(amount)
         money_all_accounts -= amount
-        
+
 def bank_status():
     with open ("./files/bank_stat.txt", "w") as bank_status:
         bank_status.write(f"Number of accounts: {number_of_accounts}\n")
@@ -102,7 +104,7 @@ def bank_status():
     print(f"Number of savings accounts: {number_savings_accounts}")
     print(f"Number of mortgage accounts: {number_mortgage_accounts}")
     print(f"Total money in all accounts: {money_all_accounts}")
-    
+
 def bankingApp():
     print("Welcome to the Python Bank Banking Application!")
     time.sleep(1)
@@ -144,9 +146,10 @@ def bankingApp():
             bank_status()
         elif choice == "9":
             print("Exiting the application.")
-            exit()
+            break
         else:
             print("Invalid input. Please try again.")
         
         input("Press Enter to return to the menu...")
-bankingApp()    
+
+bankingApp()

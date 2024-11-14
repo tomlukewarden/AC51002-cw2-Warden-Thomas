@@ -51,7 +51,7 @@ def openAccount():
     print("Account created successfully.")
 
 def existingAccount():
-    accounts = {}
+    global accounts
     with open('./files/accounts.txt', 'r') as accounts_file:
         lines = [line.strip() for line in accounts_file if line.strip()] 
         
@@ -67,20 +67,23 @@ def existingAccount():
         print("Invalid input. Please enter a valid account number.")
         return None
 
-    if accounts.get(account_number):
+    if account_number in accounts:
         print("Account found.")
-        return True
+        return account_number 
     else:
         print("Invalid account number. Please try again.")
-        return False
+        return None
+
     
 def existingAccMenu():
-    choice = input('What would you like to do today?')
+    print("\nWelcome to the existing account menu. Please select an option: \n")
     print('1. Check Balance')
     print("2. Deposit")
     print("3. Withdraw")
     print('4. Close Account')
-    print("5. Return to First Menu")
+    print("5. Exit App\n")
+
+    choice = input('What would you like to do today? ')
 
     if choice == "1":
         checkBalance()
@@ -91,7 +94,7 @@ def existingAccMenu():
     elif choice == "4":
         closeAccount()
     elif choice == "5":
-        bankingApp()
+        exit()
 
 def closeAccount():
     account = existingAccount()
@@ -158,10 +161,9 @@ def bankingApp():
         if choice == "1":
             openAccount()
         elif choice == "2":
-            existingAccount()
-            if existingAccount():
-                existingAccMenu()
-
+            account_number = existingAccount() 
+            if account_number: 
+                existingAccMenu()  
         elif choice == "3":
             closeAccount()
         elif choice == "4":
@@ -187,5 +189,4 @@ def bankingApp():
             print("Invalid input. Please try again.")
         
         input("Press Enter to return to the menu...")
-
 bankingApp()

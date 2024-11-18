@@ -51,14 +51,50 @@ def openAccount():
     print("Account created successfully.")
 
 def existingAccount():
-    account_number = int(input("Enter your account number: "))
-    account = accounts.get(account_number)
-    if account:
+    global accounts
+    with open('./files/accounts.txt', 'r') as accounts_file:
+        lines = [line.strip() for line in accounts_file if line.strip()] 
+        
+        for i in range(0, len(lines), 4):
+            account_number_line = lines[i + 2]  
+            if "Account number:" in account_number_line:
+                account_number = int(account_number_line.split(":")[1].strip())
+                accounts[account_number] = True
+
+    try:
+        account_number = int(input("Enter your account number: "))
+    except ValueError:
+        print("Invalid input. Please enter a valid account number.")
+        return None
+
+    if account_number in accounts:
         print("Account found.")
-        return account
+        return account_number 
     else:
         print("Invalid account number. Please try again.")
         return None
+
+    
+def existingAccMenu():
+    print("\nWelcome to the existing account menu. Please select an option: \n")
+    print('1. Check Balance')
+    print("2. Deposit")
+    print("3. Withdraw")
+    print('4. Close Account')
+    print("5. Exit App\n")
+
+    choice = input('What would you like to do today? ')
+
+    if choice == "1":
+        checkBalance()
+    elif choice == "2":
+        deposit()
+    elif choice == "3":
+        withdraw()
+    elif choice == "4":
+        closeAccount()
+    elif choice == "5":
+        exit()
 
 def closeAccount():
     account = existingAccount()
@@ -125,7 +161,9 @@ def bankingApp():
         if choice == "1":
             openAccount()
         elif choice == "2":
-            existingAccount() 
+            account_number = existingAccount() 
+            if account_number: 
+                existingAccMenu()  
         elif choice == "3":
             closeAccount()
         elif choice == "4":
@@ -151,5 +189,4 @@ def bankingApp():
             print("Invalid input. Please try again.")
         
         input("Press Enter to return to the menu...")
-
 bankingApp()

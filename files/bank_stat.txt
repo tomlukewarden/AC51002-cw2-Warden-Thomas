@@ -1,0 +1,5 @@
+Number of accounts: 1
+Number of current accounts: 1
+Number of savings accounts: 0
+Number of mortgage accounts: 0
+Total money in all accounts: 0

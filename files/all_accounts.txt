@@ -1,6 +1,2 @@
 
-Name: a
-Account type: Current
-Account number: 1001
-Balance: 0
 

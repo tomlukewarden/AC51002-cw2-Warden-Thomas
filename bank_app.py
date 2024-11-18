@@ -11,6 +11,14 @@ number_mortgage_accounts = 0
 def openAccount():
     global number_of_accounts, number_current_accounts, number_savings_accounts, number_mortgage_accounts
 
+    # Read the last account number
+    try:
+        with open('./files/last_account_number.txt', 'r') as file:
+            last_account_number = int(file.read().strip())
+    except (FileNotFoundError, ValueError):
+        last_account_number = 1001  # Default starting value if the file doesn't exist or is invalid
+
+    # Create account details
     name = input("Enter your name: ")
     address = input("Enter your address: ")
     phone = input("Enter your phone number: ")
@@ -18,63 +26,74 @@ def openAccount():
     print("Choose an account type: Current Account (A), Savings Account (B), Mortgage Account (C)")
     account_type = input("Enter your desired account type (A, B, C): ")
 
-    file_path = "./files/accounts.txt"
-    with open(file_path, "a") as accounts_file:
+    file_path = "./files/all_accounts.txt"
+    with open(file_path, "a") as accounts_file, open(f'./files/account_type/{account_type.lower()}', 'w') as current:
         if account_type == "A":
             account = bank_accounts.CurrentAccount(name, address, phone, email)
+            account.account_number = last_account_number  
             accounts[account.account_number] = account
             print("Opening a current account.")
             accounts_file.write(str(account) + "\n")
+            current.write(str(account) + "\n")
             print(account)
-            number_of_accounts += 1
             number_current_accounts += 1
         elif account_type == "B":
             account = bank_accounts.SavingAccount(name, address, phone, email)
+            account.account_number = last_account_number
             accounts[account.account_number] = account
             print("Opening a savings account.")
             accounts_file.write(str(account) + "\n")
             print(account)
-            number_of_accounts += 1
             number_savings_accounts += 1
         elif account_type == "C":
             account = bank_accounts.MortgageAccount(name, address, phone, email)
+            account.account_number = last_account_number
             accounts[account.account_number] = account
             print("Opening a mortgage account.")
             accounts_file.write(str(account) + "\n")
             print(account)
-            number_of_accounts += 1
             number_mortgage_accounts += 1
         else:
             print("Invalid account type. Please try again.")
             return openAccount()
 
+    # Save the new account number to the file
+    with open('./files/last_account_number.txt', 'w') as file:
+        file.write(str(last_account_number + 1))  
+
+    number_of_accounts += 1
     print("Account created successfully.")
+
+def checkForAccount():
+    global accounts, number_of_accounts
+
+    try:
+        with open('./files/all_accounts.txt', 'r') as accounts_file:
+            lines = [line.rstrip() for line in accounts_file]
+            for i in range(0, len(lines), 6):
+                try:
+                    account_number_line = lines[i + 3]  
+                    if "Account number:" in account_number_line:
+                        account_number = int(account_number_line.split(":")[1].strip())
+                        accounts[account_number] = True
+                        number_of_accounts += 1  # Keep track of the number of accounts
+                except (IndexError, ValueError):
+                    print(f"Error processing account at lines {i} to {i+5}. Skipping.")
+    except FileNotFoundError:
+        print("Error: File './files/all_accounts.txt' not found.")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+    return accounts  # Return the accounts dictionary
 
 def existingAccount():
     global accounts
-    with open('./files/accounts.txt', 'r') as accounts_file:
-        lines = [line.strip() for line in accounts_file if line.strip()] 
-        
-        for i in range(0, len(lines), 4):
-            account_number_line = lines[i + 2]  
-            if "Account number:" in account_number_line:
-                account_number = int(account_number_line.split(":")[1].strip())
-                accounts[account_number] = True
 
-    try:
-        account_number = int(input("Enter your account number: "))
-    except ValueError:
-        print("Invalid input. Please enter a valid account number.")
-        return None
-
-    if account_number in accounts:
-        print("Account found.")
-        return account_number 
+    account_number = int(input("Enter your account number: "))
+    if account_number in checkForAccount():
+        print("Account found. Welcome back!")
     else:
-        print("Invalid account number. Please try again.")
-        return None
-
-    
+        print("Account not found. Please check your account number.")
 def existingAccMenu():
     print("\nWelcome to the existing account menu. Please select an option: \n")
     print('1. Check Balance')
@@ -161,9 +180,9 @@ def bankingApp():
         if choice == "1":
             openAccount()
         elif choice == "2":
-            account_number = existingAccount() 
-            if account_number: 
-                existingAccMenu()  
+            existingAccount()
+            if existingAccount():
+                existingAccMenu()
         elif choice == "3":
             closeAccount()
         elif choice == "4":

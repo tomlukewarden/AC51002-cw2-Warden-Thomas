@@ -4,21 +4,3 @@ Account type: Current
 Account number: 1001
 Balance: 0
 
-
-Name: b
-Account type: Savings
-Account number: 1002
-Balance: 0
-
-
-Name: c
-Account type: Mortgage
-Account number: 1003
-Balance: 0
-
-
-Name: A
-Account type: Current
-Account number: 1004
-Balance: 0
-

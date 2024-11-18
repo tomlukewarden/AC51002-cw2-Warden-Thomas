@@ -27,7 +27,7 @@ def openAccount():
     account_type = input("Enter your desired account type (A, B, C): ")
 
     file_path = "./files/all_accounts.txt"
-    with open(file_path, "a") as accounts_file, open(f'./files/account_type/{account_type.lower()}', 'w') as current:
+    with open(file_path, "a") as accounts_file, open(f'./files/account_type/{account_type.lower()}.txt', 'w') as current:
         if account_type == "A":
             account = bank_accounts.CurrentAccount(name, address, phone, email)
             account.account_number = last_account_number  
@@ -66,7 +66,6 @@ def openAccount():
 
 def checkForAccount():
     global accounts, number_of_accounts
-
     try:
         with open('./files/all_accounts.txt', 'r') as accounts_file:
             lines = [line.rstrip() for line in accounts_file]
@@ -84,7 +83,7 @@ def checkForAccount():
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
-    return accounts  # Return the accounts dictionary
+    return accounts
 
 def existingAccount():
     global accounts
@@ -92,6 +91,7 @@ def existingAccount():
     account_number = int(input("Enter your account number: "))
     if account_number in checkForAccount():
         print("Account found. Welcome back!")
+        return True
     else:
         print("Account not found. Please check your account number.")
 def existingAccMenu():
@@ -180,8 +180,8 @@ def bankingApp():
         if choice == "1":
             openAccount()
         elif choice == "2":
-            existingAccount()
-            if existingAccount():
+            account = existingAccount()
+            if account:
                 existingAccMenu()
         elif choice == "3":
             closeAccount()

@@ -1,2 +1,30 @@
 
+Name: 1
+Account type: Current
+Account number: 1001
+Balance: 0
+
+
+Name: B
+Account type: Savings
+Account number: 1002
+Balance: 0
+
+
+Name: 1
+Account type: Mortgage
+Account number: 1003
+Balance: 0
+
+
+Name: B
+Account type: Current
+Account number: 1004
+Balance: 0
+
+
+Name: Tom
+Account type: Current
+Account number: 1005
+Balance: 0
 

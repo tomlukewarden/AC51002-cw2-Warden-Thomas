@@ -1,7 +1,6 @@
 
-from functions import openAccount, existingAccount, closeAccount, checkBalance, deposit, withdraw, existingAccMenu, bank_status, accounts
+from functions import openAccount, existingAccount,existingAccMenu, bank_status, all_accounts
 import time
-
 
 def bankingApp():
     print("Welcome to the Python Bank Banking Application!")
@@ -23,7 +22,7 @@ def bankingApp():
             if account:
                 existingAccMenu()
         elif choice == "3":
-            print("All accounts:")
+            all_accounts()
         elif choice == "4":
             bank_status()
         elif choice == "5":

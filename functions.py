@@ -147,7 +147,11 @@ def withdraw():
         amount = float(input("How much would you like to withdraw? "))
         account.withdraw(amount)
         money_all_accounts -= amount
-
+def all_accounts():
+    with open ("./files/all_accounts.txt", "r") as accounts:
+        print("Open Accounts:")
+        print(accounts)
+        
 def bank_status():
     with open ("./files/bank_stat.txt", "w") as bank_status:
         bank_status.write(f"Number of accounts: {number_of_accounts}\n")

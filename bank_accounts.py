@@ -20,6 +20,7 @@ class CurrentAccount(CustomerDetails):
         return f"\nName: {self.name}\nAccount type: {self.account_type}\nAccount number: {self.account_number}\nBalance: {self.balance}\n"
 
     def deposit(self, amount):
+        amount = input("Enter the amount to deposit: ")
         self.balance += amount
         print(f"Deposited {amount} successfully.")
 

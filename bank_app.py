@@ -3,11 +3,14 @@ from functions import openAccount, existingAccount,existingAccMenu, staff_menu
 import time
 
 def staff():
-    is_staff = input("If you are a staff member please enter the password: ")
+    is_staff = input("If you are a staff member please enter the password, please press 'ENTER' and continue as a customer: ")
     if is_staff == "password":
         staff_menu()
+    elif is_staff == "":
+        pass
     elif is_staff != "password":
-        print("Wrong password, please press 'ENTER' and continue as a customer")
+        print("Wrong password, try again")
+        staff()
     else:
         print("Invalid input. Please try again.")
         staff()

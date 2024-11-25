@@ -1,6 +1,9 @@
 from bank_accounts import CurrentAccount, SavingAccount, MortgageAccount
+import json
 from utility import save_to_json, load_from_json
 import time
+
+accounts = {}
 
 def openAccount():
     global number_of_accounts, number_current_accounts, number_savings_accounts, number_mortgage_accounts, accounts
@@ -39,6 +42,7 @@ def openAccount():
         monthly_repayment = float(input("Enter the monthly repayment amount: "))
         account.monthly_repayment = monthly_repayment
         balance = float(input("Enter the initial balance: "))
+        account.balance = -balance
         print("Opening a mortgage account.")
         print(account)
     else:
@@ -53,24 +57,22 @@ def openAccount():
     print("Account created successfully.")
 
 def checkForAccount(account_number):
-    global accounts
-    load_from_json(accounts)  # Load existing accounts from JSON
+    accounts = load_from_json()  # Load accounts from JSON
     if account_number in accounts:
         return True
-    else:
-        return False
+    return False
 
+    
 def existingAccount():
-    global accounts
-
+    accounts = load_from_json()  # Load accounts from JSON
     account_number = int(input("Enter your account number: "))
-    # Pass the account number to checkForAccount and directly return True or False
     if checkForAccount(account_number):
         print(f"Account found. Welcome back {accounts[account_number].name}!")
         return True
     else:
         print("Account not found. Please check your account number.")
         return False
+
 
 def existingAccMenu():
     print("\nWelcome to the existing account menu. Please select an option: \n")
@@ -104,19 +106,25 @@ def checkBalance():
         print("Account not found. Please check your account number.")
     input("Press Enter to return to the menu...")
     existingAccMenu()
-
+    
 def deposit():
-    account_number = int(input("Please confirm your account number: "))
-    if checkForAccount(account_number):
-        amount = float(input("Enter the amount you would like to deposit: "))
-        if amount > 0:
-            accounts[account_number].balance += amount 
-            save_to_json(accounts) 
-            print(f"Deposit successful. New balance: {accounts[account_number].balance}")
+    accounts = load_from_json()
+
+    try:
+        account_number = int(input("Please confirm your account number: "))
+        if account_number in accounts:
+            amount = float(input("Enter the amount you would like to deposit: "))
+            if amount > 0:
+                accounts[account_number].balance += amount
+                save_to_json(accounts)
+                print(f"Deposit successful. New balance: {accounts[account_number].balance}")
+            else:
+                print("Invalid deposit amount. Please enter a positive value.")
         else:
-            print("Invalid deposit amount. Please enter a positive value.")
-    else:
-        print("Account not found. Please check your account number.")
+            print("Account not found. Please check your account number.")
+    except ValueError:
+        print("Invalid input. Please enter numeric values for account number and deposit amount.")
+    
     input("Press Enter to return to the menu...")
     existingAccMenu()
 
@@ -184,7 +192,6 @@ def all_accounts():
     input("Press Enter to return to the menu...")
     staff_menu()
     
-import json
 
 def bank_status():
     try:

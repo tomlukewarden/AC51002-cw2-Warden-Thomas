@@ -14,7 +14,7 @@ should include at least the following:
 customer).[X]
 4. Provide options to open current accounts and saving accounts. [X]
 5. Provide an option to show the current state of all accounts for a customer. [X]
-6. Add an option to apply interest to all accounts. []
+6. Add an option to apply interest to all accounts. [X]
 7. For each account type, provide options to enable a customer to view their account balance,
 deposit cash and withdraw cash. [X]
 8. Save the current state of the Bank to a text file. []

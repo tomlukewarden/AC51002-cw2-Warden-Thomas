@@ -2,63 +2,52 @@
     "accounts": [
         {
             "account_number": 1001,
-            "name": "John Doe",
-            "address": "123 Elm St",
+            "name": "Alice Johnson",
+            "address": "123 Maple St, Springfield",
             "phone": "555-1234",
-            "email": "john.doe@example.com",
+            "email": "alice.johnson@example.com",
             "account_type": "Current",
-            "balance": 4999.0
+            "balance": 1853.78
         },
         {
             "account_number": 1002,
-            "name": "Jane Smith",
-            "address": "456 Oak St",
+            "name": "Bob Smith",
+            "address": "456 Oak Ave, Lincoln",
             "phone": "555-5678",
-            "email": "jane.smith@example.com",
+            "email": "bob.smith@example.com",
             "account_type": "Savings",
-            "balance": 10000.0,
+            "balance": 3000.0,
             "interest_rate": 0.02
         },
         {
             "account_number": 1003,
-            "name": "Robert Brown",
-            "address": "789 Pine St",
+            "name": "Clara Davis",
+            "address": "789 Pine Rd, Shelbyville",
             "phone": "555-8765",
-            "email": "robert.brown@example.com",
+            "email": "clara.davis@example.com",
             "account_type": "Mortgage",
-            "balance": 150000.0,
+            "balance": -308962.5,
             "interest_rate": 0.05,
-            "monthly_repayment": 1200.0
+            "monthly_repayment": 1200
         },
         {
             "account_number": 1004,
-            "name": "Emily White",
-            "address": "321 Birch St",
+            "name": "David Lee",
+            "address": "101 Elm St, Springfield",
             "phone": "555-4321",
-            "email": "emily.white@example.com",
-            "account_type": "Current",
-            "balance": 3000.0
+            "email": "david.lee@example.com",
+            "account_type": "Savings",
+            "balance": 1483.02,
+            "interest_rate": 0.02
         },
         {
             "account_number": 1005,
-            "name": "Michael Green",
-            "address": "654 Maple St",
+            "name": "Ella Brown",
+            "address": "202 Birch Ln, Centerville",
             "phone": "555-6789",
-            "email": "michael.green@example.com",
-            "account_type": "Savings",
-            "balance": 25000.0,
-            "interest_rate": 0.03
-        },
-        {
-            "account_number": 1006,
-            "name": "Sarah Blue",
-            "address": "987 Cedar St",
-            "phone": "555-2468",
-            "email": "sarah.blue@example.com",
-            "account_type": "Mortgage",
-            "balance": 200000.0,
-            "interest_rate": 0.04,
-            "monthly_repayment": 1500.0
+            "email": "ella.brown@example.com",
+            "account_type": "Current",
+            "balance": 988.6800000000001
         }
     ]
 }

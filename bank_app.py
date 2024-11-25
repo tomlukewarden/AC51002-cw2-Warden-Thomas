@@ -1,6 +1,17 @@
 
-from functions import openAccount, existingAccount,existingAccMenu, bank_status, all_accounts
+from functions import openAccount, existingAccount,existingAccMenu, bank_status, all_accounts, staff_menu
 import time
+
+def staff():
+    is_staff = input("If you are a staff member please enter the password:")
+    if is_staff == "password":
+        staff_menu()
+    elif is_staff != "password":
+        print("Wrong password, please continue as a customer")
+    else:
+        print("Invalid input. Please try again.")
+        exit()
+staff()
 
 def bankingApp():
     print("Welcome to the Python Bank Banking Application!")

@@ -19,7 +19,6 @@ class CurrentAccount(CustomerDetails):
     def __str__(self):
         return f"\nName: {self.name}\nAccount type: {self.account_type}\nAccount number: {self.account_number}\nBalance: {self.balance}\n"
 
-
 class SavingAccount(CurrentAccount):
     def __init__(self, name, address, phone, email, balance=0, interest_rate=0.02):
         super().__init__(name, address, phone, email, balance)

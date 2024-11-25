@@ -52,13 +52,23 @@
         {
             "account_number": 1006,
             "name": "Thomas Warden",
-            "address": "Addrress Street",
+            "address": "Address Street",
             "phone": "07515663249",
             "email": "tom@email.com",
             "account_type": "Mortgage",
             "balance": -120000.0,
             "interest_rate": 0.05,
             "monthly_repayment": 400.0
+        },
+        {
+            "account_number": 1007,
+            "name": "Emma Formosa",
+            "address": "emma street",
+            "phone": "111111",
+            "email": "emma@email.com",
+            "account_type": "Savings",
+            "balance": 10000.0,
+            "interest_rate": 0.02
         }
     ]
 }

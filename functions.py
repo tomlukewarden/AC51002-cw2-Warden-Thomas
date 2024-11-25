@@ -6,11 +6,7 @@ import time
 accounts = {}
 
 def openAccount():
-    global number_of_accounts, number_current_accounts, number_savings_accounts, number_mortgage_accounts, accounts
-    try:
-        accounts = load_from_json(accounts)
-    except FileNotFoundError:
-        accounts = {}
+    accounts = load_from_json()
     if accounts:
         last_account_number = max(accounts.keys()) + 1
     else:
@@ -173,7 +169,7 @@ def staff_menu():
         exit()
 
 def all_accounts():
-    load_from_json(accounts)
+    accounts = load_from_json()
     print("All accounts:")
     for account_number, account in accounts.items():
         print(f"Account Number: {account_number}")
@@ -241,7 +237,7 @@ def bank_status():
     staff_menu()
 
 def add_interest():
-    load_from_json(accounts)
+    accounts = load_from_json()
     interest_rate = float(input("Enter the interest rate (as a percentage): ")) / 100
     for account in accounts.values():
         if hasattr(account, "balance"):

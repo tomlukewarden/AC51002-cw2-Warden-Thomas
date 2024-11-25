@@ -1,1 +1,5 @@
-Total number of accounts: 6Number of current accounts: 2Number of savings accounts: 2Number of mortgage accounts: 2Total money within savings and current accounts: 7325.48
+Total number of accounts: 6
+Number of current accounts: 2
+Number of savings accounts: 2
+Number of mortgage accounts: 2
+Total money within savings and current accounts: 9329.26

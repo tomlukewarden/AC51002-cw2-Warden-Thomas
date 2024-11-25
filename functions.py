@@ -1,12 +1,6 @@
 from bank_accounts import CurrentAccount, SavingAccount, MortgageAccount
 from utility import save_to_json, load_from_json
-
-accounts = {}
-number_of_accounts = 0
-money_all_accounts = 0
-number_current_accounts = 0
-number_savings_accounts = 0
-number_mortgage_accounts = 0
+import time
 
 def openAccount():
     global number_of_accounts, number_current_accounts, number_savings_accounts, number_mortgage_accounts, accounts
@@ -32,14 +26,12 @@ def openAccount():
         accounts[account.account_number] = account
         print("Opening a current account.")
         print(account)
-        number_current_accounts += 1
     elif account_type == "B":
         account = SavingAccount(name, address, phone, email)
         account.account_number = last_account_number
         accounts[account.account_number] = account
         print("Opening a savings account.")
         print(account)
-        number_savings_accounts += 1
     elif account_type == "C":
         account = MortgageAccount(name, address, phone, email)
         account.account_number = last_account_number
@@ -47,10 +39,8 @@ def openAccount():
         monthly_repayment = float(input("Enter the monthly repayment amount: "))
         account.monthly_repayment = monthly_repayment
         balance = float(input("Enter the initial balance: "))
-        account.balance = -balance
         print("Opening a mortgage account.")
         print(account)
-        number_mortgage_accounts += 1
     else:
         print("Invalid account type. Please try again.")
         return openAccount()
@@ -60,7 +50,6 @@ def openAccount():
         file.write(str(last_account_number + 1))  
         
     save_to_json(accounts)
-    number_of_accounts += 1
     print("Account created successfully.")
 
 def checkForAccount(account_number):
@@ -89,7 +78,8 @@ def existingAccMenu():
     print("2. Deposit")
     print("3. Withdraw")
     print('4. Close Account')
-    print("5. Exit App\n")
+    print('5. Make Payment')
+    print("6. Exit App\n")
 
     choice = input('What would you like to do today? ')
 
@@ -102,6 +92,8 @@ def existingAccMenu():
     elif choice == "4":
         closeAccount()
     elif choice == "5":
+        deposit()
+    elif choice == "6":
         exit()
 
 def checkBalance():
@@ -114,12 +106,12 @@ def checkBalance():
     existingAccMenu()
 
 def deposit():
-    account_number = int(input("Enter your account number: "))
+    account_number = int(input("Please confirm your account number: "))
     if checkForAccount(account_number):
-        amount = float(input("Enter the amount to deposit: "))
+        amount = float(input("Enter the amount you would like to deposit: "))
         if amount > 0:
-            accounts[account_number].balance += amount  # Update balance directly
-            save_to_json(accounts)  # Save the updated accounts dictionary
+            accounts[account_number].balance += amount 
+            save_to_json(accounts) 
             print(f"Deposit successful. New balance: {accounts[account_number].balance}")
         else:
             print("Invalid deposit amount. Please enter a positive value.")
@@ -153,7 +145,7 @@ def closeAccount():
         print("Account not found. Please check your account number.")
     input("Press Enter to return to the menu...")
     existingAccMenu()
-            
+    
 def staff_menu():
     print("\nWelcome to the staff menu. Please select an option: \n")
     print('1. Show all accounts')
@@ -161,7 +153,7 @@ def staff_menu():
     print('3. Add Interest to all accounts')
     print("4. Exit App\n")
 
-    choice = input('What would you like to do today? ')
+    choice = input('What would you like to do today? (Please leave this field empty and press "ENTER" if you would like to continue as a customer) ')
 
     if choice == "1":
         all_accounts()
@@ -187,33 +179,67 @@ def all_accounts():
             print(f"Interest Rate: {account.interest_rate}")
         elif isinstance(account, MortgageAccount):
             print(f"Interest Rate: {account.interest_rate}")
-            print(f"Monthly Repayment: {account.monthly_repayment}/n")
+            print(f"Monthly Repayment: {account.monthly_repayment}\n")
         print("--------------------------------------------------")
     input("Press Enter to return to the menu...")
     staff_menu()
-def bank_status():
-    load_from_json(accounts)
-    number_of_accounts = len(accounts)
     
-    with open('./files/bank_status.txt', 'a'):
-        print("Bank Status:")
-        print(f"Number of accounts: {number_of_accounts}")
-        print(f"Number of current accounts: {number_current_accounts}")
-        print(f"Number of savings accounts: {number_savings_accounts}")
-        print(f"Number of mortgage accounts: {number_mortgage_accounts}")
-        print(f"Total balance: {money_all_accounts}")
-        print("--------------------------------------------------")
-        input("Press Enter to return to the menu...")
-        staff_menu()
+import json
+
+def bank_status():
+    try:
+        with open("./accounts.json", "r") as file:
+            data = json.load(file)
+        accounts = data.get("accounts", [])
+        
+        if not isinstance(accounts, list):
+            print("Error: 'accounts' is not a list.")
+            return
+
+    except FileNotFoundError:
+        print("Error: accounts.json file not found.")
+        return
+    except json.JSONDecodeError:
+        print("Error: Failed to decode JSON data.")
+        return
+
+    number_of_accounts = len(accounts)
+    number_current_accounts = sum(
+        1 for account in accounts if account.get("account_type", "").lower() == "current"
+    )
+    number_savings_accounts = sum(
+        1 for account in accounts if account.get("account_type", "").lower() == "savings"
+    )
+    number_mortgage_accounts = sum(
+        1 for account in accounts if account.get("account_type", "").lower() == "savings"
+    )
+    total_money = sum(
+        account.get("balance", 0) for account in accounts 
+        if account.get("account_type", "").lower() in ["current", "savings"]
+    )
+    with open ('./files/bank_status.txt', 'w') as bank_status_file:
+        bank_status_file.write(f"Total number of accounts: {number_of_accounts}\n")
+        bank_status_file.write(f"Number of current accounts: {number_current_accounts}\n")
+        bank_status_file.write(f"Number of savings accounts: {number_savings_accounts}\n")
+        bank_status_file.write(f"Number of mortgage accounts: {number_mortgage_accounts}\n")
+        bank_status_file.write(f"Total money within savings and current accounts: {total_money}\n")
+    print('Collecting Bank Status, please wait...')
+    time.sleep(4)
+    print(f"Total number of accounts: {number_of_accounts}")
+    print(f"Number of current accounts: {number_current_accounts}")
+    print(f"Number of savings accounts: {number_savings_accounts}")
+    print(f"Number of mortgage accounts: {number_mortgage_accounts}")
+    print(f"Total money within savings and current accounts: {total_money}")
+    time.sleep(4)
+    staff_menu()
 
 def add_interest():
-    load_from_json(accounts)  # Load accounts from JSON file
+    load_from_json(accounts)
     interest_rate = float(input("Enter the interest rate (as a percentage): ")) / 100
-
-    for account in accounts.values():  # Iterate through account objects
-        if hasattr(account, "balance"):  # Ensure the account has a balance attribute
-            account.balance += round(account.balance * interest_rate, 2)  # Apply interest
-    save_to_json(accounts)  # Save updated accounts back to JSON
+    for account in accounts.values():
+        if hasattr(account, "balance"):
+            account.balance += round(account.balance * interest_rate, 2)  
+    save_to_json(accounts)  
     print("Interest added successfully.")
     input("Press Enter to return to the menu...")
     staff_menu()

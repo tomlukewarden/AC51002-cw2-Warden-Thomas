@@ -19,22 +19,6 @@ class CurrentAccount(CustomerDetails):
     def __str__(self):
         return f"\nName: {self.name}\nAccount type: {self.account_type}\nAccount number: {self.account_number}\nBalance: {self.balance}\n"
 
-    def deposit(self, amount):
-        amount = input("Enter the amount to deposit: ")
-        self.balance += amount
-        print(f"Deposited {amount} successfully.")
-
-    def withdraw(self, amount):
-        if amount > self.balance:
-            print("Insufficient balance.")
-            return False
-        self.balance -= amount
-        print(f"Withdrew {amount} successfully.")
-        return True
-
-    def check_balance(self):
-        print(f"Balance of account {self.account_number}: {self.balance}")
-
 
 class SavingAccount(CurrentAccount):
     def __init__(self, name, address, phone, email, balance=0, interest_rate=0.02):

@@ -48,6 +48,17 @@
             "email": "ella.brown@example.com",
             "account_type": "Current",
             "balance": 988.6800000000001
+        },
+        {
+            "account_number": 1006,
+            "name": "Thomas Warden",
+            "address": "Addrress Street",
+            "phone": "07515663249",
+            "email": "tom@email.com",
+            "account_type": "Mortgage",
+            "balance": -120000.0,
+            "interest_rate": 0.05,
+            "monthly_repayment": 400.0
         }
     ]
 }

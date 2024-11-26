@@ -49,6 +49,8 @@ def openAccount():
     with open('./files/last_account_number.txt', 'w') as file:
         file.write(str(last_account_number + 1))  
         
+    account.account_number = last_account_number
+    accounts[account.account_number] = account
     save_to_json(accounts)
     print("Account created successfully.")
 
@@ -103,19 +105,18 @@ def checkBalance():
     input("Press Enter to return to the menu...")
     existingAccMenu()
     
+
 def deposit():
     accounts = load_from_json()
 
     try:
         account_number = int(input("Please confirm your account number: "))
         if account_number in accounts:
+            account = accounts[account_number]
             amount = float(input("Enter the amount you would like to deposit: "))
-            if amount > 0:
-                accounts[account_number].balance += amount
-                save_to_json(accounts)
-                print(f"Deposit successful. New balance: {accounts[account_number].balance}")
-            else:
-                print("Invalid deposit amount. Please enter a positive value.")
+            result = account.deposit(amount)  
+            save_to_json(accounts)  
+            print(result)  
         else:
             print("Account not found. Please check your account number.")
     except ValueError:
@@ -124,32 +125,48 @@ def deposit():
     input("Press Enter to return to the menu...")
     existingAccMenu()
 
+
 def withdraw():
-    account_number = int(input("Enter your account number: "))
-    if checkForAccount(account_number):
-        amount = float(input("Enter the amount to withdraw: "))
-        if amount > 0 and accounts[account_number].balance >= amount:
-            accounts[account_number].balance -= amount  # Update balance directly
-            save_to_json(accounts)  # Save the updated accounts dictionary
-            print(f"Withdrawal successful. New balance: {accounts[account_number].balance}")
+    accounts = load_from_json()
+
+    try:
+        account_number = int(input("Enter your account number: "))
+        if account_number in accounts:
+            account = accounts[account_number]
+            amount = float(input("Enter the amount to withdraw: "))
+            result = account.withdraw(amount) 
+            save_to_json(accounts)  
+            print(result)  
         else:
-            print("Invalid withdrawal amount or insufficient balance.")
-    else:
-        print("Account not found. Please check your account number.")
+            print("Account not found. Please check your account number.")
+    except ValueError:
+        print("Invalid input. Please enter numeric values for account number and withdrawal amount.")
+    
     input("Press Enter to return to the menu...")
     existingAccMenu()
-    
+
 def closeAccount():
-    account_number = int(input("Confirm your account number: "))
-    if checkForAccount(account_number):
-        del accounts[account_number]
-        save_to_json(accounts)  # Save the updated accounts dictionary
-        print("Account closed successfully.")
-    else:
-        print("Account not found. Please check your account number.")
+    accounts = load_from_json()
+
+    try:
+        account_number = int(input("Confirm your account number: "))
+        if account_number in accounts:
+            account = accounts[account_number] 
+            result = account.close_account()  
+            if result: 
+                del accounts[account_number] 
+                save_to_json(accounts) 
+                print("Account closed successfully.")
+            else:
+                print("Account closure failed.")
+        else:
+            print("Account not found. Please check your account number.")
+    except ValueError:
+        print("Invalid input. Please enter a numeric account number.")
+    
     input("Press Enter to return to the menu...")
     existingAccMenu()
-    
+
 def staff_menu():
     print("\nWelcome to the staff menu. Please select an option: \n")
     print('1. Show all accounts')

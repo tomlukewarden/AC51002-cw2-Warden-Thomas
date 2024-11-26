@@ -1,4 +1,3 @@
-
 class CustomerDetails:
     last_account_number = 1001
 
@@ -20,11 +19,12 @@ class CurrentAccount(CustomerDetails):
         super().__init__(name, address, phone, email)
         self.account_number = CustomerDetails.generate_account_number()
         self.account_type = "Current"
-        self.balance = balance
+        self.balance = round(balance, 2)
 
     def deposit(self, amount):
         if amount > 0:
             self.balance += amount
+            self.balance = round(self.balance, 2)
             print(f"Deposit successful. New balance: {self.balance}")
         else:
             print("Invalid deposit amount. Please enter a positive value.")
@@ -32,6 +32,7 @@ class CurrentAccount(CustomerDetails):
     def withdraw(self, amount):
         if amount > 0 and self.balance >= amount:
             self.balance -= amount
+            self.balance = round(self.balance, 2)
             print(f"Withdrawal successful. New balance: {self.balance}")
         else:
             print("Invalid withdrawal amount or insufficient balance.")
@@ -71,6 +72,14 @@ class SavingAccount(CurrentAccount):
         self.account_type = "Savings"
         self.interest_rate = interest_rate
 
+    def apply_interest(self):
+        # Apply interest to balance
+        interest_amount = self.balance * self.interest_rate
+        self.balance += interest_amount
+        self.balance = round(self.balance, 2)  # Round after adding interest
+        print(f"Interest applied. New balance: {self.balance}")
+        print("--------------------------------------------------")
+
     def to_dict(self):
         data = super().to_dict()
         data["interest_rate"] = self.interest_rate
@@ -89,6 +98,13 @@ class MortgageAccount(CurrentAccount):
         self.account_type = "Mortgage"
         self.interest_rate = interest_rate
         self.monthly_repayment = monthly_repayment
+
+    def apply_interest(self):
+        # Apply interest to mortgage balance
+        interest_amount = self.balance * self.interest_rate
+        self.balance += interest_amount
+        self.balance = round(self.balance, 2)  # Round after adding interest
+        print(f"Interest applied to mortgage. New balance: {self.balance}")
 
     def to_dict(self):
         data = super().to_dict()

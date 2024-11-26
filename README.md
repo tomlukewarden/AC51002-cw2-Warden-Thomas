@@ -18,11 +18,11 @@ customer).[X]
 7. For each account type, provide options to enable a customer to view their account balance,
 deposit cash and withdraw cash. [X]
 8. Save the current state of the Bank to a text file. [X]
-9. Load the current state of the Bank from a text file, i.e. restore the current state of the Bank. []
+9. Load the current state of the Bank from a text file, i.e. restore the current state of the Bank. [X]
 10. Make good use of classes and functions in your design, to minimise code duplication and
-enhance the clarity and maintainability of code. []
-11. Comment your program appropriately. []
-12. Make your program robust to user input errors and display appropriate messages to the user. []
+enhance the clarity and maintainability of code. [X]
+11. Comment your program appropriately. [X]
+12. Make your program robust to user input errors and display appropriate messages to the user. [X]
 
 #### Optional
 

@@ -2,7 +2,8 @@
 Bringing functions through for the banking app
 Doing this is separate files makes the readability of the code better
 '''
-from functions import openAccount, existingAccount,existingAccMenu, staff_menu
+from functions import openAccount, existingAccount,existingAccMenu
+from staff_functions import staff_menu
 import time
 
 def staff():

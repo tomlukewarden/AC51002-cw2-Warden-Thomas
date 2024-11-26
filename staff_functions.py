@@ -48,7 +48,6 @@ def all_accounts():
     staff_menu()
     
 def bank_status():
-    
     try:
         data = load_from_json()
         accounts = data.get("accounts", [])

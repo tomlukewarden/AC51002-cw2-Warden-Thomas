@@ -2,6 +2,7 @@ import json
 from bank_accounts import CurrentAccount, SavingAccount, MortgageAccount
 
 def save_to_json(accounts, filename='accounts.json'):
+    # Convert accounts to a list of dictionaries
     data = [
         {
             "account_number": account.account_number,
@@ -11,17 +12,24 @@ def save_to_json(accounts, filename='accounts.json'):
             "email": account.email,
             "account_type": account.account_type,
             "balance": account.balance,
-            **({"interest_rate": account.interest_rate} if isinstance(account, SavingAccount) else {}),
-            **({"interest_rate": account.interest_rate, "monthly_repayment": account.monthly_repayment}
-               if isinstance(account, MortgageAccount) else {})
+            # Add interest rate using the created class
+            **({"interest_rate": account.interest_rate} if isinstance(account, SavingAccount) else {}), 
+            # Add interest rate and monthly repayment using the created class
+            **({"interest_rate": account.interest_rate, "monthly_repayment": account.monthly_repayment} 
+            if isinstance(account, MortgageAccount) else {})
         }
         for account in accounts.values()
     ]
     try:
+        # Write the data to the JSON file
         with open(filename, 'w') as file:
+            # Use json.dump to write the data to the file
             json.dump({"accounts": data}, file, indent=4)
+            # Use indent=4 to make the JSON file more readable
         print(f"Accounts saved successfully to {filename}.")
+        # If the file is successfully written, print this success message
     except Exception as e:
+        # If there is an error, print this error message
         print(f"Error saving accounts to {filename}: {e}")
 
 

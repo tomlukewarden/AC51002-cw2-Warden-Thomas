@@ -17,7 +17,7 @@ customer).[X]
 6. Add an option to apply interest to all accounts. [X]
 7. For each account type, provide options to enable a customer to view their account balance,
 deposit cash and withdraw cash. [X]
-8. Save the current state of the Bank to a text file. []
+8. Save the current state of the Bank to a text file. [X]
 9. Load the current state of the Bank from a text file, i.e. restore the current state of the Bank. []
 10. Make good use of classes and functions in your design, to minimise code duplication and
 enhance the clarity and maintainability of code. []
@@ -31,6 +31,6 @@ features (for extra marks up to a maximum of 15%). For example:
 
 1. Add an option for a customer to open a mortgage account, with interest deducted (when
 interest is applied to savings accounts) and a monthly capital repayment amount which
-should be deducted from the current account. []
-2. Include separate sub-Menus for Banking Admin and Customers. []
+should be deducted from the current account. [X]
+2. Include separate sub-Menus for Banking Admin and Customers. [X]
 3. Any other features you think would improve your Banking simulation. []

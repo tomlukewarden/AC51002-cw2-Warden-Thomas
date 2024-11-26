@@ -1,6 +1,5 @@
 class CustomerDetails:
     last_account_number = 1001  # Initial value; starts numbering from 1001
-
     def __init__(self, name, address, phone, email):
         self.name = name
         self.address = address

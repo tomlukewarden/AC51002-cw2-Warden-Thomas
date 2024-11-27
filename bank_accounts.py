@@ -1,3 +1,4 @@
+# CustomerDetails class
 class CustomerDetails:
     last_account_number = 1001
 
@@ -8,39 +9,42 @@ class CustomerDetails:
         self.email = email
 
     @classmethod
+    # Generate and return the next available account number
     def generate_account_number(cls):
         account_number = cls.last_account_number
         cls.last_account_number += 1
         return account_number
 
-
-class CurrentAccount(CustomerDetails):
+# CurrentAccount class
+class CurrentAccount(CustomerDetails): # Inherit from CustomerDetails
     def __init__(self, name, address, phone, email, balance=0):
-        super().__init__(name, address, phone, email)
-        self.account_number = CustomerDetails.generate_account_number()
+        super().__init__(name, address, phone, email) # Call the constructor of the parent class
+        self.account_number = CustomerDetails.generate_account_number() # Generate and assign the account number
         self.account_type = "Current"
-        self.balance = round(balance, 2)
+        self.balance = round(balance, 2) # Round the balance
 
     def deposit(self, amount):
-        if amount > 0:
+        if amount > 0: # Check if the deposit amount is positive
             self.balance += amount
-            self.balance = round(self.balance, 2)
-            print(f"Deposit successful. New balance: {self.balance}\n")
+            self.balance = round(self.balance, 2) # Round the balance
+            print(f"Deposit successful. New balance: {self.balance}\n") # Print the updated balance
         else:
             print("Invalid deposit amount. Please enter a positive value.")
 
     def withdraw(self, amount):
-        if amount > 0 and self.balance >= amount:
+        if amount > 0 and self.balance >= amount: # Check if the withdrawal amount is positive and there is enough balance
             self.balance -= amount
-            self.balance = round(self.balance, 2)
-            print(f"Withdrawal successful. New balance: {self.balance}\n")
+            self.balance = round(self.balance, 2) # Round the balance
+            print(f"Withdrawal successful. New balance: {self.balance}\n") # Print the updated balance
         else:
             print("Invalid withdrawal amount or insufficient balance.")
 
     def check_balance(self):
+        # Check and print the current balance
         print(f"Current balance: {self.balance}\n")
 
     def close_account(self, accounts_dict):
+        # Remove the account from the dictionary
         del accounts_dict[self.account_number]
         print("Account closed successfully.\n")
 

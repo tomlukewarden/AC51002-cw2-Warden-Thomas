@@ -25,7 +25,7 @@ class CurrentAccount(CustomerDetails):
         if amount > 0:
             self.balance += amount
             self.balance = round(self.balance, 2)
-            print(f"Deposit successful. New balance: {self.balance}")
+            print(f"Deposit successful. New balance: {self.balance}\n")
         else:
             print("Invalid deposit amount. Please enter a positive value.")
 
@@ -33,16 +33,16 @@ class CurrentAccount(CustomerDetails):
         if amount > 0 and self.balance >= amount:
             self.balance -= amount
             self.balance = round(self.balance, 2)
-            print(f"Withdrawal successful. New balance: {self.balance}")
+            print(f"Withdrawal successful. New balance: {self.balance}\n")
         else:
             print("Invalid withdrawal amount or insufficient balance.")
 
     def check_balance(self):
-        print(f"Current balance: {self.balance}")
+        print(f"Current balance: {self.balance}\n")
 
     def close_account(self, accounts_dict):
         del accounts_dict[self.account_number]
-        print("Account closed successfully.")
+        print("Account closed successfully.\n")
 
     def to_dict(self):
         return {

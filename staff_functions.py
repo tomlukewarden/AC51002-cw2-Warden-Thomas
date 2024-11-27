@@ -16,7 +16,7 @@ def staff_menu():
         # Show all accounts
         all_accounts()
     elif choice == "2":
-        # Show ank status
+        # Show bank status
         bank_status()
     elif choice == "3":
         # Add interest to all accounts
@@ -27,6 +27,8 @@ def staff_menu():
 
 def all_accounts():
     accounts = load_from_json() # Load accounts from JSON
+    print("Fetching all accounts\n")
+    time.sleep(2)
     print("All accounts:")
     # Display all accounts
     for account_number, account in accounts.items():
@@ -44,46 +46,45 @@ def all_accounts():
             print(f"Monthly Repayment: {account.monthly_repayment}\n")
         print("--------------------------------------------------")
         # Print a line to separate each account
+        time.sleep(2)
     input("Press Enter to return to the menu...")
     staff_menu()
     
 def bank_status():
     try:
-        data = load_from_json()
-        accounts = data.get("accounts", [])
-        if not isinstance(accounts, list):
-            print("Error: 'accounts' is not a list.")
-            return
-
-    except FileNotFoundError:  # If the file is not found
+        accounts = load_from_json()  # This returns a dictionary of account objects
+    except FileNotFoundError:
         print("Error: accounts.json file not found.")
         return
-    except json.JSONDecodeError:  # If the JSON data cannot be decoded
+    except json.JSONDecodeError:
         print("Error: Failed to decode JSON data.")
         return
-    except Exception as e:  # For any other unexpected error
+    except Exception as e:
         print(f"Unexpected error: {e}")
         return
-
-    # Calculate number of all accounts
+    
+    # Initialize counts and total money
     number_of_accounts = len(accounts)
+    number_current_accounts = 0
+    number_savings_accounts = 0
+    number_mortgage_accounts = 0
+    total_money = 0
 
-    # Calculate number of each type of account
-    number_current_accounts = sum(
-        1 for account in accounts if account.get("account_type", "").lower() == "current"
-    )
-    number_savings_accounts = sum(
-        1 for account in accounts if account.get("account_type", "").lower() == "savings"
-    )
-    number_mortgage_accounts = sum(
-        1 for account in accounts if account.get("account_type", "").lower() == "mortgage"
-    )
-
-    # Calculate total money in savings and current accounts
-    total_money = sum(
-        account.get("balance", 0) for account in accounts 
-        if account.get("account_type", "").lower() in ["current", "savings"]
-    )
+    # Iterate over each account in the dictionary
+    for account in accounts.values():
+        account_type = account.__class__.__name__  # Get the type of the account from the class name
+        
+        # Count the types of accounts
+        if account_type == "CurrentAccount":
+            number_current_accounts += 1
+        elif account_type == "SavingAccount":
+            number_savings_accounts += 1
+        elif account_type == "MortgageAccount":
+            number_mortgage_accounts += 1
+        
+        # Add the balance of current and savings accounts to the total money
+        if account_type in ["CurrentAccount", "SavingAccount"]:
+            total_money += account.balance
 
     # Writing bank status to a file
     with open('./files/bank_status.txt', 'w') as bank_status_file:
@@ -104,6 +105,7 @@ def bank_status():
     time.sleep(4)
 
     staff_menu()
+
 def add_interest():    
     accounts = load_from_json()  # Load accounts from JSON
     interest_rate = float(input("Enter the interest rate (as a percentage): ")) / 100

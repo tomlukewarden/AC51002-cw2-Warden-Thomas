@@ -7,7 +7,7 @@
             "phone": "555-1234",
             "email": "alice.johnson@example.com",
             "account_type": "Current",
-            "balance": 4954.7
+            "balance": 5152.89
         },
         {
             "account_number": 1002,
@@ -16,7 +16,7 @@
             "phone": "555-5678",
             "email": "bob.smith@example.com",
             "account_type": "Savings",
-            "balance": 3060.0,
+            "balance": 3121.2,
             "interest_rate": 0.02
         },
         {
@@ -26,7 +26,7 @@
             "phone": "555-8765",
             "email": "clara.davis@example.com",
             "account_type": "Mortgage",
-            "balance": -324410.62,
+            "balance": -340631.15,
             "interest_rate": 0.05,
             "monthly_repayment": 1200
         },
@@ -37,7 +37,7 @@
             "phone": "555-4321",
             "email": "david.lee@example.com",
             "account_type": "Savings",
-            "balance": 1512.68,
+            "balance": 1542.93,
             "interest_rate": 0.02
         },
         {
@@ -47,7 +47,7 @@
             "phone": "555-6789",
             "email": "ella.brown@example.com",
             "account_type": "Current",
-            "balance": 1008.45
+            "balance": 1048.79
         },
         {
             "account_number": 1006,
@@ -56,7 +56,7 @@
             "phone": "07515663249",
             "email": "tom@email.com",
             "account_type": "Mortgage",
-            "balance": -126000.0,
+            "balance": -132300.0,
             "interest_rate": 0.05,
             "monthly_repayment": 400.0
         },
@@ -67,7 +67,7 @@
             "phone": "111111",
             "email": "emma@email.com",
             "account_type": "Savings",
-            "balance": 10200.0,
+            "balance": 10404.0,
             "interest_rate": 0.02
         }
     ]

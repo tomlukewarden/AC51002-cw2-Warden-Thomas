@@ -7,7 +7,7 @@
             "phone": "555-1234",
             "email": "alice.johnson@example.com",
             "account_type": "Current",
-            "balance": 5152.89
+            "balance": 5255.95
         },
         {
             "account_number": 1002,
@@ -16,8 +16,8 @@
             "phone": "555-5678",
             "email": "bob.smith@example.com",
             "account_type": "Savings",
-            "balance": 3121.2,
-            "interest_rate": 0.02
+            "balance": 3183.62,
+            "interest_rate": 2
         },
         {
             "account_number": 1003,
@@ -26,8 +26,8 @@
             "phone": "555-8765",
             "email": "clara.davis@example.com",
             "account_type": "Mortgage",
-            "balance": -340631.15,
-            "interest_rate": 0.05,
+            "balance": -357662.71,
+            "interest_rate": 5,
             "monthly_repayment": 1200
         },
         {
@@ -37,8 +37,8 @@
             "phone": "555-4321",
             "email": "david.lee@example.com",
             "account_type": "Savings",
-            "balance": 1542.93,
-            "interest_rate": 0.02
+            "balance": 1573.79,
+            "interest_rate": 2
         },
         {
             "account_number": 1005,
@@ -47,7 +47,7 @@
             "phone": "555-6789",
             "email": "ella.brown@example.com",
             "account_type": "Current",
-            "balance": 1048.79
+            "balance": 1069.77
         },
         {
             "account_number": 1006,
@@ -56,8 +56,8 @@
             "phone": "07515663249",
             "email": "tom@email.com",
             "account_type": "Mortgage",
-            "balance": -132300.0,
-            "interest_rate": 0.05,
+            "balance": -138915.0,
+            "interest_rate": 5,
             "monthly_repayment": 400.0
         },
         {
@@ -67,8 +67,8 @@
             "phone": "111111",
             "email": "emma@email.com",
             "account_type": "Savings",
-            "balance": 10404.0,
-            "interest_rate": 0.02
+            "balance": 10612.08,
+            "interest_rate": 2
         }
     ]
 }

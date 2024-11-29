@@ -71,7 +71,7 @@ class CurrentAccount(CustomerDetails): # Inherit from CustomerDetails
 
 # For Savings and Mortgage accounts, override any specific behavior as needed
 class SavingAccount(CurrentAccount):
-    def __init__(self, name, address, phone, email, balance=0, interest_rate=0.02):
+    def __init__(self, name, address, phone, email, balance=0, interest_rate=2):
         super().__init__(name, address, phone, email, balance)
         self.account_type = "Savings"
         self.interest_rate = interest_rate
@@ -92,12 +92,12 @@ class SavingAccount(CurrentAccount):
     @classmethod
     def from_dict(cls, data):
         account = super().from_dict(data)
-        account.interest_rate = data.get("interest_rate", 0.02)
+        account.interest_rate = data.get("interest_rate", 2)
         return account
 
 
 class MortgageAccount(CurrentAccount):
-    def __init__(self, name, address, phone, email, balance=0, interest_rate=0.05, monthly_repayment=0):
+    def __init__(self, name, address, phone, email, balance=0, interest_rate=5, monthly_repayment=0):
         super().__init__(name, address, phone, email, balance)
         self.account_type = "Mortgage"
         self.interest_rate = interest_rate
@@ -119,6 +119,6 @@ class MortgageAccount(CurrentAccount):
     @classmethod
     def from_dict(cls, data):
         account = super().from_dict(data)
-        account.interest_rate = data.get("interest_rate", 0.05)
+        account.interest_rate = data.get("interest_rate", 5)
         account.monthly_repayment = data.get("monthly_repayment", 0)
         return account
